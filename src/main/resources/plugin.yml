@@ -1,0 +1,11 @@
+name: HandItemHide
+version: ${project.version}
+main: me.yama2211.hih.Main
+
+commands:
+  sp:
+    description: sp.use
+    usage: /<command> args
+  sp.reload:
+    description: sp.reload
+    usage: /<command> args

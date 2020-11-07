@@ -1,0 +1,22 @@
+#
+# HandItemHide Config File
+# Config ver : 1.0
+#
+
+#メッセージ関係
+MSG:
+  flyOn: "&6飛行状態を有効にしました"
+  flyOff: "&9飛行状態を解除しました"
+  NoPex: "&4権限がありません"
+  Login: "&6%player &bがログインしました。"
+  Logout: "&6%player &bがログアウトしました。"
+  Reload: "&aConfigをリロードしました。"
+
+#ログインとログアウトの偽造の有無
+#def : true
+FakeMessage: true
+#on実行時は Logout が呼び出されます。
+#off実行時は Login が呼び出されます。
+#アップデート通知
+#def : true
+Update: true
