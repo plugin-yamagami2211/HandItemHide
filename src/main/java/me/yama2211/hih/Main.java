@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public final class Main extends JavaPlugin implements Listener {
 
@@ -39,31 +41,32 @@ public final class Main extends JavaPlugin implements Listener {
     public void Flag(Player player,Boolean flag){
         if(flag){
             //player.setPlayerListName(ChatColor.BLACK + player.getPlayer().getName());
-
+            //暗視付与
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,1000000000,0));
             //プレイヤーを消す。
             PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, ((CraftPlayer)player).getHandle());
             for (Player ps : Bukkit.getOnlinePlayers()) {
                 ps.hidePlayer(player);
                 ((CraftPlayer)ps).getHandle().playerConnection.sendPacket(packet);
             }
+            //ログアウト偽造
             if(getConfig().getBoolean("FakeMessage")){
             String FakeLogout = getConfig().getString("MSG"+".Logout");
             FakeLogout = FakeLogout.replaceAll("%player",player.getName());
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',FakeLogout));
-
             }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',getConfig().getString("MSG"+".flyOn")));
             return;
         } else {
-            player.setPlayerListName(player.getPlayer().getName());
-            //player.removePotionEffect(PotionEffectType.INVISIBILITY);
-
+            //暗視削除
+            player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+            //プレイヤー表示
             PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, ((CraftPlayer)player).getHandle());
             for (Player ps : Bukkit.getOnlinePlayers()) {
                 ps.showPlayer(player);
                 ((CraftPlayer)ps).getHandle().playerConnection.sendPacket(packet);
             }
-
+            //ログイン偽装
             if(getConfig().getBoolean("FakeMessage")) {
                 String FakeLogin = getConfig().getString("MSG" + ".Login");
                 FakeLogin = FakeLogin.replaceAll("%player", player.getName());
@@ -75,20 +78,22 @@ public final class Main extends JavaPlugin implements Listener {
         }
     @EventHandler
     public void onLogin(PlayerJoinEvent e){
+        if(getConfig().getBoolean("LoginMessage")){
         e.setJoinMessage(null);
         String Login = getConfig().getString("MSG"+".Login");
         Login = Login.replaceAll("%player",e.getPlayer().getName());
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',Login));
+        }
     }
     @EventHandler
     public void onLogout(PlayerQuitEvent e){
+        if(getConfig().getBoolean("LogoutMessage")){
         e.setQuitMessage(null);
         String Logout = getConfig().getString("MSG"+".Logout");
         Logout = Logout.replaceAll("%player",e.getPlayer().getName());
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',Logout));
-
+        }
     }
-
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
         Player p = ( sender instanceof Player ) ? ( Player )sender:( Player )null;

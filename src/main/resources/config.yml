@@ -12,6 +12,11 @@ MSG:
   Logout: "&6%player &bがログアウトしました。"
   Reload: "&aConfigをリロードしました。"
 
+#ログイン,ログアウトのメッセージの有無
+#偽装ではなく、サーバに入ったとき、抜けたときに表示されるものです。
+LoginMessage: true
+LogoutMessage: true
+
 #ログインとログアウトの偽造の有無
 #def : true
 FakeMessage: true
