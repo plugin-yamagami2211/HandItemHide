@@ -5,7 +5,7 @@ main: me.yama2211.hih.Main
 commands:
   sp:
     description: sp.use
-    usage: /<command> args
+    usage: /sp on or off
   sp.reload:
     description: sp.reload
-    usage: /<command> args
+    usage: /sp reload
