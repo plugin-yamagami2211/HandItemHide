@@ -96,7 +96,12 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-        Player p = ( sender instanceof Player ) ? ( Player )sender:( Player )null;
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes(
+                    '&',getConfig().getString("MSG"+".NoPlayer")));
+        }
+        else {
+            Player p = (Player) sender;
 
         if(cmd.getName().equalsIgnoreCase("sp")){
             if (args.length == 0) {
@@ -111,15 +116,36 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     } else {
 
-                    if(p == null) return false;
                     //sp on
                     if (args[0].equalsIgnoreCase("on")) {
                         Flag(p,true);
+
+                        if (args.length == 1) {
+                            try {
+                            Player targetPlayer = p.getServer().getPlayer(args[1]);
+                            Flag(targetPlayer,true);
+                            return true;
+
+                            } catch (Exception err){
+                                p.sendMessage(ChatColor.RED + "プレイヤーが見つかりません。");
+                            }
+                        }
+
                         return true;
                     }
+
                     //sp off
                     if (args[0].equalsIgnoreCase("off")) {
                         Flag(p,false);
+                        if (args.length == 1) {
+                            try {
+                            Player targetPlayer = p.getServer().getPlayer(args[1]);
+                            Flag(targetPlayer,false);
+                            return true;
+                            } catch (Exception err){
+                                p.sendMessage(ChatColor.RED + "プレイヤーが見つかりません。");
+                            }
+                        }
                         return true;
                     }
                     //sp reload
@@ -141,6 +167,8 @@ public final class Main extends JavaPlugin implements Listener {
             }
         }
 
+        return true;
+    }
         return true;
     }
 
