@@ -119,33 +119,12 @@ public final class Main extends JavaPlugin implements Listener {
                     //sp on
                     if (args[0].equalsIgnoreCase("on")) {
                         Flag(p,true);
-
-                        if (args.length == 1) {
-                            try {
-                            Player targetPlayer = p.getServer().getPlayer(args[1]);
-                            Flag(targetPlayer,true);
-                            return true;
-
-                            } catch (Exception err){
-                                p.sendMessage(ChatColor.RED + "プレイヤーが見つかりません。");
-                            }
-                        }
-
                         return true;
                     }
 
                     //sp off
                     if (args[0].equalsIgnoreCase("off")) {
                         Flag(p,false);
-                        if (args.length == 1) {
-                            try {
-                            Player targetPlayer = p.getServer().getPlayer(args[1]);
-                            Flag(targetPlayer,false);
-                            return true;
-                            } catch (Exception err){
-                                p.sendMessage(ChatColor.RED + "プレイヤーが見つかりません。");
-                            }
-                        }
                         return true;
                     }
                     //sp reload
