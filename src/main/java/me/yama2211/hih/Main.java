@@ -105,7 +105,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         if(cmd.getName().equalsIgnoreCase("sp")){
             if (args.length == 0) {
-                sender.sendMessage(ChatColor.GREEN + "/sp <on | off>\n/sp relad");
+                sender.sendMessage(ChatColor.GREEN + "/sp <on | off>\n/sp reload");
                 return true;
             }
                 if (args.length == 1) {
