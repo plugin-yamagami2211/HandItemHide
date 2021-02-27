@@ -27,7 +27,7 @@ public final class Main extends JavaPlugin implements Listener {
         if(getConfig().getBoolean("Update")){
             new UpdateChecker(this,"HandItemHide").getVersion(version -> {
                 if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                    getLogger().info("利用可能なアップデートがあります。配布フォーラムをご確認ください。");
+                    getLogger().warning("利用可能なアップデートがあります。配布フォーラムをご確認ください。\nリンク:https://ym21.ml/amc4e");
                 }
             });
         }
